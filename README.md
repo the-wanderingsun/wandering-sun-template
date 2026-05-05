@@ -1,147 +1,178 @@
-# 太阳在世界游荡 · WANDERING SUN
+# 🌞 Wandering Sun — Personal Site Template
 
-> Web3 营销人 · 数字游民 · AI 探索者  
-> 在流动中工作，在创作里认识自己。
-
-**线上地址**: [wanderingsun.xyz](https://wanderingsun.xyz)
-
----
-
-## 技术栈
-
-| 层 | 选型 | 版本 |
-|----|------|------|
-| 框架 | Next.js (App Router) | 16.2.4 |
-| 语言 | TypeScript | 5.x |
-| 构建 | **Turbopack** | 内置（`--turbopack`）|
-| 样式 | 纯 CSS Variables | 无 Tailwind |
-| 3D 地球 | globe.gl + Three.js | 2.x + 0.184+ |
-| 部署 | Vercel | 自动（push 触发）|
+A minimalist personal website template for digital nomads, indie writers, and Web3 builders.  
+Built with **Next.js 14 · CSS Variables · Markdown**.  
+One-click deploy to Vercel. No database. No CMS. Just files.
 
 ---
 
-## 本地开发
+## ✨ Features
+
+- **Hero** — name, bio, avatar, social links
+- **Travel Map** — interactive globe of cities you've lived in / visited
+- **Blog** — Markdown posts with frontmatter, auto-sorted by date, filterable by category (`LIVING / WEB3 / AI / ESSAYS`)
+- **Footer** — tagline, social links, copyright
+- **Dark-accented warm theme** — charcoal background, amber/warm-white accents
+- **Mobile-first** — responsive at every breakpoint
+- **Static generation** — SSG via `generateStaticParams`, instant page loads
+
+---
+
+## 🚀 Quick Start
 
 ```bash
-# 安装依赖
+# 1. Clone
+git clone https://github.com/the-wanderingsun/wandering-sun-template.git my-site
+cd my-site
+
+# 2. Install
 npm install
 
-# 启动开发服务器（Turbopack）
+# 3. Run locally
 npm run dev
-# → http://localhost:3000
-
-# 生产构建（Turbopack）
-npm run build
-
-# 生产预览
-npm start
+# → open http://localhost:3000
 ```
 
 ---
 
-## 目录结构
+## 🛠 Customize
+
+### 1 · Personal Info
+
+Edit `components/sections/Hero.tsx` and `components/sections/Footer.tsx` — look for every `✏️ Edit` comment.
+
+```tsx
+// Hero.tsx — replace YOUR NAME, YOUR_HANDLE, YOUR_XIAOHONGSHU_URL, etc.
+<h1 className="hero-heading">
+  YOUR
+  <em>NAME</em>
+</h1>
+```
+
+### 2 · Avatar
+
+Replace `public/images/avatar.png` with your own photo (square, min 280 × 280 px recommended).
+
+### 3 · Travel Map
+
+Edit `content/cities.ts` — add / remove cities, set `type: 'current' | 'lived' | 'visited'`.
+
+```ts
+{
+  id: 'lisbon',
+  name: 'LISBON',
+  region: 'SOUTHERN EUROPE · 葡萄牙',
+  lat: 38.72, lon: -9.14,
+  type: 'current',
+  statusText: 'Based here · 2026',
+  coords: '38.716° N · 9.139° W',
+  desc: 'Your personal take on this city.',
+  articles: [],
+}
+```
+
+### 4 · Blog Posts
+
+Create a `.md` file anywhere under `content/blog/`:
 
 ```
-wandering-sun-site/
-├── app/                      # Next.js App Router
-│   ├── globals.css           # 全站 CSS（CSS 变量系统）
-│   ├── layout.tsx            # 根布局（字体 / ThemeProvider / Cursor）
-│   ├── page.tsx              # 首页
-│   ├── robots.ts             # → /robots.txt（含 AI 爬虫规则）
-│   └── sitemap.ts            # → /sitemap.xml
-│
+content/blog/living/my-first-city.md
+content/blog/ai/my-ai-workflow.md
+```
+
+**Frontmatter template:**
+
+```md
+---
+title: 'Your Post Title'
+slug: 'your-post-slug'
+publishedAt: '2026-01-01'
+category: 'LIVING'           # LIVING | WEB3 | AI | ESSAYS
+location: 'LIVING · CITIES'
+excerpt: 'One sentence summary shown on the card.'
+image: '/images/cover-living.png'
+imageAlt: 'Description for accessibility'
+---
+
+Your Markdown content here.
+```
+
+**Scaffold a new post in one command:**
+
+```bash
+npm run new:post -- "My Article Title" --category LIVING
+```
+
+### 5 · Cover Images
+
+Drop your cover images into `public/images/`.  
+Recommended size: **1200 × 630 px** (16:9).  
+Four sample covers are included: `cover-living.png`, `cover-web3.png`, `cover-ai.png`, `cover-essays.png`.
+
+---
+
+## 📁 Project Structure
+
+```
+├── app/
+│   ├── page.tsx              # Home (Hero + Map + Blog)
+│   ├── blog/[id]/page.tsx    # Post detail
+│   └── globals.css           # All styles (CSS variables)
 ├── components/
-│   ├── sections/             # 页面区块组件
-│   │   ├── Hero.tsx
-│   │   ├── Nav.tsx
-│   │   ├── Blog.tsx
-│   │   ├── Flash.tsx
-│   │   ├── Footer.tsx
-│   │   ├── Footprints/       # 地球 globe.gl + 城市卡片
-│   │   │   ├── index.tsx     # 区块入口（'use client'，管理 activeCity state）
-│   │   │   ├── GlobeClient.tsx  # 地球渲染（dynamic ssr:false）
-│   │   │   └── CityCard.tsx  # 城市信息卡片
-│   │   └── Podcast/          # 播客
-│   │       ├── index.tsx     # 区块入口（Server Component）
-│   │       └── Player.tsx    # 播放器（'use client'）
-│   └── ui/                   # 全局可复用 UI
-│       ├── Cursor.tsx        # 自定义鼠标（'use client'）
-│       ├── JsonLd.tsx        # 结构化数据（SEO / GEO）
-│       ├── ThemeProvider.tsx # 主题 Context（'use client'）
-│       └── ThemeToggle.tsx   # 主题切换按钮
-│
-├── content/                  # 站点内容数据（TypeScript）
-│   ├── cities.ts             # 足迹城市
-│   ├── episodes.ts           # 播客单集
-│   ├── flash.ts              # 闪念卡片
-│   └── posts.ts              # 博客文章
-│
-├── lib/                      # 工具 / 全局常量
-│   └── constants.ts          # SITE_URL、SITE_NAME 等
-│
-├── public/
-│   ├── images/               # 图片资源
-│   ├── icon.svg
-│   ├── llms.txt              # AI 爬虫索引（llms.txt 标准）
-│   ├── llms-full.txt         # 全量内容（供 LLM 直接索引）
-│   └── manifest.json         # PWA manifest
-│
-├── types/
-│   └── index.ts              # TypeScript 接口（City / Post / Episode / FlashCard）
-│
-├── CLAUDE.md                 # Claude Code 项目记忆（每次完成后同步）
-└── README.md                 # 本文件（每次完成后同步）
+│   └── sections/
+│       ├── Hero.tsx          # ✏️ Edit personal info here
+│       ├── TravelMap.tsx     # Interactive globe
+│       ├── Blog.tsx          # Blog grid + filter tabs
+│       └── Footer.tsx        # ✏️ Edit links here
+├── content/
+│   ├── cities.ts             # ✏️ Your travel history
+│   └── blog/
+│       ├── living/           # LIVING category posts
+│       ├── web3/             # WEB3 category posts
+│       ├── ai/               # AI category posts
+│       └── essays/           # ESSAYS category posts
+├── lib/
+│   └── posts.ts              # Auto-scans content/blog/ for .md files
+├── public/images/            # Avatar + cover images
+└── scripts/
+    └── new-post.mjs          # CLI scaffold tool
 ```
 
 ---
 
-## 页面区块
+## ☁️ Deploy to Vercel
 
-| 区块 | ID | 说明 |
-|------|----|------|
-| HERO | `#hero` | 个人介绍 + 头像 |
-| FOOTPRINTS | `#footprints` | globe.gl 交互地球 + 城市卡片（日夜着色器）|
-| 沉淀 | `#blog` | 深度博客文章 |
-| VOICE | `#podcast` | 播客列表 + 播放器 |
-| FLASH | `#flash` | 闪念随笔卡片 |
-| FOOTER | `#footer` | 联系方式 + 社交链接 |
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/the-wanderingsun/wandering-sun-template)
 
----
+Or manually:
 
-## 主题系统
+```bash
+npm i -g vercel
+vercel --prod
+```
 
-- 使用 `data-theme` 属性（`dark` / `light`），**不用 Tailwind dark:**
-- CSS 变量定义在 `app/globals.css`
-- 偏好存入 `localStorage`（key: `ws-theme`）
-- 切换主题后通过 `window.updateGlobeTheme?.()` 通知地球更新背景
+Connect your GitHub repo in the Vercel dashboard for automatic deploys on every push.
 
 ---
 
-## SEO / GEO / LLM
+## 🧩 Tech Stack
 
-| 文件 | 作用 |
-|------|------|
-| `app/layout.tsx` | 完整 Metadata（OG / Twitter Card / canonical）|
-| `app/sitemap.ts` | 自动生成 sitemap.xml |
-| `app/robots.ts` | 明确允许 15+ AI 爬虫（GPTBot / ClaudeBot / PerplexityBot 等）|
-| `components/ui/JsonLd.tsx` | 4 种 Schema.org（Person / WebSite / WebPage / PodcastSeries）|
-| `public/llms.txt` | llms.txt 标准，AI 爬虫索引 |
-| `public/llms-full.txt` | 全量站点内容，供 LLM 直接引用 |
-
----
-
-## 数据更新
-
-直接编辑 `content/` 目录下对应 TypeScript 文件，push 后 Vercel 自动重建。
+| Layer | Choice |
+|-------|--------|
+| Framework | Next.js 14 (App Router) |
+| Styling | CSS Variables (no Tailwind) |
+| Markdown | gray-matter + remark |
+| Globe | globe.gl + Three.js |
+| Hosting | Vercel (free tier) |
+| Language | TypeScript |
 
 ---
 
-## 部署
+## 📄 License
 
-推送到 GitHub，Vercel 自动构建并部署。
+MIT — free to use, modify, and deploy for personal or commercial projects.  
+Attribution appreciated but not required.
 
 ---
 
-## Agent 记忆
-
-见 [CLAUDE.md](./CLAUDE.md) — 供 Claude Code 每次会话时载入。
+*Built by [太阳在世界游荡](https://github.com/the-wanderingsun) · STAY WILD.*

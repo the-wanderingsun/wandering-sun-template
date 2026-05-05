@@ -1,79 +1,49 @@
 import type { City } from '@/types'
 
+// ✏️ Edit: Replace these sample cities with your own travel history.
+// type: 'current' | 'lived' | 'visited'
+// - 'current'  → where you are now (highlighted pin)
+// - 'lived'    → places you stayed for weeks / months
+// - 'visited'  → short trips & stopovers
+
 export const CITIES: City[] = [
   {
-    id: 'kunming',
-    name: 'KUNMING',
-    region: 'SOUTHWEST CHINA · 云南昆明',
-    lat: 24.87,
-    lon: 102.90,
+    id: 'city-a',
+    name: 'YOUR CITY',            // ✏️ e.g. 'LISBON'
+    region: 'YOUR REGION · 地区',  // ✏️ e.g. 'SOUTHERN EUROPE · 葡萄牙'
+    lat: 38.72,
+    lon: -9.14,
     type: 'current',
-    statusText: '当前所在 2026.05',
-    coords: '24.874° N · 102.906° E',
-    desc: '从安宁区到呈贡区，在昆明断断续续住了快一年。安宁很偏，进城一趟算出远门，但有每周两次的集市，便宜新鲜的蔬果和朴实的云南人，撑起了一段原本有些无聊的旅居生活。',
-    articles: [],
-  },
-  {
-    id: 'nepal',
-    name: 'POKHARA',
-    region: 'SOUTH ASIA · 尼泊尔',
-    lat: 28.21,
-    lon: 83.99,
-    type: 'lived',
-    statusText: '旅居 2026.01～02',
-    coords: '28.210° N · 83.985° E',
-    desc: '从加德满都的混乱和糟糕的空气里逃出来，辗转落脚湖边区，租到一间阳光湖景房。在这里学了咖啡，走了布恩山和MHBC，第一次站在雪山脚下。尼泊尔穷，但有些体验，只有这里才有。',
+    statusText: 'Based here · 2026',   // ✏️ e.g. 'Currently here 2026.05'
+    coords: '38.716° N · 9.139° W',   // ✏️ update to match lat/lon above
+    desc: 'Write a few sentences about this city from your personal perspective. What surprised you? What made you stay?',
     articles: [
-      { title: '落地即穿越：一个土木人在尼泊尔加德满都的真实经历', tag: '旅居', href: '/blog/nepal-kathmandu' },
-      { title: '布恩山+MHBC 6天徒步全记录：踩坑与经验', tag: '徒步', href: '/blog/nepal-trek' },
+      // ✏️ Link to related blog posts, or leave the array empty: []
+      { title: 'Your article title', tag: 'LIVING', href: '/blog/your-slug' },
     ],
   },
   {
-    id: 'thailand',
-    name: 'CHIANG MAI',
-    region: 'SOUTHEAST ASIA · 泰国',
-    lat: 18.79,
-    lon: 98.98,
+    id: 'city-b',
+    name: 'SECOND CITY',
+    region: 'REGION · 地区',
+    lat: 13.76,
+    lon: 100.50,
     type: 'lived',
-    statusText: '旅居 2025.05～06',
-    coords: '18.788° N · 98.985° E',
-    desc: '第一次旅居的起点。冲着网上铺天盖地的好评去，结果六月落地才发现那是清迈最热的时候——热得让人觉得这是一座国际版大农村。但不是不好，只是时机不对。清迈值得再去，前提是选对季节。',
+    statusText: 'Lived here 2025.06～08',
+    coords: '13.756° N · 100.502° E',
+    desc: 'Another city where you spent real time — not just passing through. What was daily life like? What did you learn there?',
     articles: [],
   },
   {
-    id: 'japan',
-    name: 'KANSAI',
-    region: 'EAST ASIA · 日本关西',
-    lat: 34.69,
-    lon: 135.50,
-    type: 'visited',
-    statusText: '路过',
-    coords: '34.693° N · 135.502° E',
-    desc: '发达国家的秩序感扑面而来。街道干净，智能马桶的普及率是真实震撼到我了。下次考虑带家里人来玩。',
-    articles: [],
-  },
-  {
-    id: 'singapore',
-    name: 'SINGAPORE',
-    region: 'SOUTHEAST ASIA · 新加坡',
+    id: 'city-c',
+    name: 'THIRD CITY',
+    region: 'REGION · 地区',
     lat: 1.35,
     lon: 103.82,
     type: 'visited',
-    statusText: '路过',
+    statusText: 'Stopover',
     coords: '1.352° N · 103.820° E',
-    desc: '忙碌、高效、多元。在这里走路都快了半拍，能感受到全球商业枢纽特有的紧绷感。多元文化并存得很自然，是我见过国际化程度最高的城市之一。',
-    articles: [],
-  },
-  {
-    id: 'malaysia',
-    name: 'PENANG',
-    region: 'SOUTHEAST ASIA · 马来西亚',
-    lat: 5.41,
-    lon: 100.33,
-    type: 'visited',
-    statusText: '路过',
-    coords: '5.414° N · 100.330° E',
-    desc: '华人很多，文化亲切感拉满。街头壁画、老庙与南洋建筑混在一起，旅游体验很好，适合第一次出国的人。',
+    desc: 'A quick visit or stopover. Even short trips leave impressions worth recording.',
     articles: [],
   },
 ]
